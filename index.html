@@ -58,6 +58,8 @@
 <li class=nav-item><a class="nav-link scrollto" href=#function-mark>.mark</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-counter>.counter</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-countMemory>.countMemory</a></li>
+<li class=nav-item><a class="nav-link scrollto" href=#function-setName>.setName</a></li>
+<li class=nav-item><a class="nav-link scrollto" href=#function-setThreadName>.setThreadName</a></li>
 <li class="nav-item section-title"><a class="nav-link scrollto active" href=#jprof><span class="theme-icon-holder mr-2"><i class="fa fa-cogs"></i></span>jprof</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#jprof-push>.jprof.push</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#jprof-pop>.jprof.pop</a></li>
@@ -476,6 +478,58 @@ Warning
 <h5>Example</h5>
 <div class=docs-code-block>
 <script src=https://gist.github.com/EngineerSmith/b96d30292bc8e18edd9d4240f79ad3ae.js></script>
+</div>
+</section>
+<section class=docs-section id=function-setName>
+<h2 class=section-heading>.setName(name)</h2>
+<p>Set the name of the process across the whole project. This will also set the name of the current thread. You can speficiy a name within <a class=scrollto href=#function-beginSession>beginSession</a>, which defaults to the filesystem identity.</p>
+<div class="table-responsive my-4">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope=col>Parameter</th>
+<th scope=col>Optional</th>
+<th scope=col>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope=row>name</th>
+<td class=text-center><i class="fa fa-times-circle"></i></td>
+<td>The name of the process and the current thread</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5>Example</h5>
+<div class=docs-code-block>
+<script src=https://gist.github.com/EngineerSmith/d36df60a2b3eaba76912836e1d7dce75.js></script>
+</div>
+</section>
+<section class=docs-section id=function-setThreadName>
+<h2 class=section-heading>.setThreadName(name)</h2>
+<p>Set the name of the current thread. The default name is a random interager used to identity the thread internally with AppleCake.</p>
+<div class="table-responsive my-4">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope=col>Parameter</th>
+<th scope=col>Optional</th>
+<th scope=col>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope=row>name</th>
+<td class=text-center><i class="fa fa-times-circle"></i></td>
+<td>The name of the thread</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5>Example</h5>
+<div class=docs-code-block>
+<script src=https://gist.github.com/EngineerSmith/14c1b86c39a6b07fa3108386f3ed838d.js></script>
 </div>
 </section>
 </article>
