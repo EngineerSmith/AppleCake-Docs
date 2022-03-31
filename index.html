@@ -50,6 +50,8 @@
 <li class="nav-item section-title"><a class="nav-link scrollto active" href=#functions><span class="theme-icon-holder mr-2"><i class="fa fa-cogs"></i></span>Functions</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-beginSession>.beginSession</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-endSession>.endSession</a></li>
+<li class=nav-item><a class="nav-link scrollto" href=#function-setBuffer>.setBuffer</a></li>
+<li class=nav-item><a class="nav-link scrollto" href=#function-flush>.flush</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-enable>.enable</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-profile>.profile</a></li>
 <li class=nav-item><a class="nav-link scrollto" href=#function-profileFunc>.profileFunc</a></li>
@@ -154,9 +156,13 @@ Warning
 <div class=docs-code-block>
 <script src=https://gist.github.com/EngineerSmith/767f54ea53cbdd876b0a0cc6a0a8a500.js></script>
 </div>
-<p>Finally, a new feature in AppleCake are counters. These produce a bar graph in the profile viewer to track a variable's change over time</p>
+<p>A recently new feature in AppleCake are counters. These produce a bar graph in the profile viewer to track a variable's change over time</p>
 <div class=docs-code-block>
 <script src=https://gist.github.com/EngineerSmith/5b4e3a2c3ee627f2485472f736f23901.js></script>
+</div>
+<p>If you're having performance issues with AppleCake in a thread. You can buffer profiling data in that thread to send it all at once. This is handy for threads that are constantly producing a lot of profiling data per frame, such as the main thread. Profiles, marks and counters are all buffered.</p>
+<div class=docs-code-block>
+<script src=https://gist.github.com/EngineerSmith/0d894b589e28aaee591b0be8be878ca5.js></script>
 </div>
 <p>These are examples of AppleCake's main functionality, check out the individual documentation on each function for further details of their use with more examples.</p>
 </section>
@@ -254,7 +260,7 @@ Note
 </section>
 <section class=docs-section id=function-endSession>
 <h2 class=section-heading>.endSession()</h2>
-<p>Must be called to close the file correctly. This function ends and waits for it's thread to re-join. So calling this function can be slow if there are a lot of profiles or marks waiting in the queue, but it will wait until they have all be written before continuing.</p>
+<p>Must be called to close the file correctly. This function ends and waits for it's thread to re-join. So calling this function can be slow if there are a lot of profiles or marks waiting in the queue, but it will wait until they have all be written before continuing. If <a class=scrollto href=#function-setBuffer>.setBuffer</a> is set to true and there is buffered data waiting to be flushed, it will flush before ending the session.</p>
 <div class="callout-block callout-block-success">
 <div class=content>
 <h4 class=callout-title>
@@ -267,6 +273,40 @@ Tip
 <h5>Example</h5>
 <div class=docs-code-block>
 <script src=https://gist.github.com/EngineerSmith/5321e9d7ec10b9e7caf28676203954bc.js></script>
+</div>
+</section>
+<section class=docs-section id=function-setBuffer>
+<h2 class=section-heading>.setBuffer([enable])</h2>
+<p>By default nothing is buffered. Buffering is recommended to get a performance increase from AppleCake, but has the disadvantage that data not <a class=scrollto href=#function-flush>.flush</a>ed won't be saved. Such as when the program crashes unexpectedly. Only Profiles, Marks, and Counters are buffered while beginning and ending a session or setting thread name, or sort index will be force pushed.</p>
+<div class="table-responsive my-4">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope=col>Parameter</th>
+<th scope=col>Optional</th>
+<th scope=col>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope=row>enable</th>
+<td class=text-center><i class="fa fa-check-circle"></i></td>
+<td>Defaults to false, and only excepts <code>true</code> as a true value.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5>Example</h5>
+<div class=docs-code-block>
+<script src=https://gist.github.com/EngineerSmith/c4ca6de833f35e50b2182cbd4a555367.js></script>
+</div>
+</section>
+<section class=docs-section id=function-flush>
+<h2 class=section-heading>.flush()</h2>
+<p>Flush any data buffered. Data is only buffered when <a class=scrollto href=#function-setBuffer>.setBuffer</a> is set to true. <a class=scrollto href=#function-endSession>.endSession</a> will also call flush if there is any buffered data waiting to be sent. Buffering data can have improvements to processing speed, but the draw back of increased memory usage. It's recommended to call flush once the frame is finished.</p>
+<h5>Example</h5>
+<div class=docs-code-block>
+<script src=https://gist.github.com/EngineerSmith/6b251cff3d48ad901fbd0f0058c0d300.js></script>
 </div>
 </section>
 <section class=docs-section id=function-enable>
